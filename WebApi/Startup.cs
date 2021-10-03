@@ -1,3 +1,4 @@
+using DataAccess.Dapper;
 using DataAccess.EFCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -20,8 +21,14 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddEntityFrameworkDataAccess("Filename=mydb.db");
-            services.AddEntityFrameworkRepositories();
+            // Entity Framework
+            //services.AddEntityFrameworkDataAccess("Filename=mydb.db");
+            //services.AddEntityFrameworkRepositories();
+
+            // Dapper
+            services.AddDapperDataAccess("Data Source=mydb.db");
+            services.AddDapperRepositories();
+
             services.AddInfrastructureServices();
             services.AddControllers();
         }
@@ -31,11 +38,7 @@ namespace WebApi
         {
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

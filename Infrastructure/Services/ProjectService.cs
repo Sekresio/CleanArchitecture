@@ -18,6 +18,7 @@ namespace Infrastructure.Services
         public IEnumerable<Project> GetAllProjects()
         {
             var projects = _unitOfWork.Projects.GetAll();
+            _unitOfWork.Complete();
             return projects;
         }
 
